@@ -1,0 +1,52 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.0": 200,
+      "vusers.created": 200,
+      "errors.an URL must be specified": 200,
+      "vusers.failed": 200
+    },
+    "rates": {},
+    "firstCounterAt": 1711365350240,
+    "lastCounterAt": 1711365369802,
+    "firstMetricAt": 1711365350240,
+    "lastMetricAt": 1711365369802,
+    "period": 1711365360000,
+    "summaries": {},
+    "histograms": {}
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.0": 100,
+        "vusers.created": 100,
+        "errors.an URL must be specified": 100,
+        "vusers.failed": 100
+      },
+      "rates": {},
+      "firstCounterAt": 1711365350240,
+      "lastCounterAt": 1711365359802,
+      "firstMetricAt": 1711365350240,
+      "lastMetricAt": 1711365359802,
+      "period": "1711365350000",
+      "summaries": {},
+      "histograms": {}
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.0": 100,
+        "vusers.created": 100,
+        "errors.an URL must be specified": 100,
+        "vusers.failed": 100
+      },
+      "rates": {},
+      "firstCounterAt": 1711365360239,
+      "lastCounterAt": 1711365369802,
+      "firstMetricAt": 1711365360239,
+      "lastMetricAt": 1711365369802,
+      "period": "1711365360000",
+      "summaries": {},
+      "histograms": {}
+    }
+  ]
+}
