@@ -10,20 +10,13 @@ config:
 
 scenarios:
   - flow:
-      - load:
-          path: "players.csv"
-          fields: ["displayName"]
-          variable: "displayNames"
       - get:
           url: "/kahoots/"
           headers:
             Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImViYzIwNzkzNTQ1NzExODNkNzFjZWJlZDI5YzU1YmVmMjdhZDJjY2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSHV5ZW4gTlRLIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0luVXdITkJiamFIUndSYXk4WXd3NjRILXFqSTR3Ui04MUhJY2R5SUp5OGF3PXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3NvbmF0LWJpLWthaG9vdCIsImF1ZCI6InNvbmF0LWJpLWthaG9vdCIsImF1dGhfdGltZSI6MTcxMDc0NTgyNiwidXNlcl9pZCI6IkhENWdVYlI5MG5NR29CdU5MRWhiOU85d0dxSzIiLCJzdWIiOiJIRDVnVWJSOTBuTUdvQnVOTEVoYjlPOXdHcUsyIiwiaWF0IjoxNzExMzYwNDkwLCJleHAiOjE3MTEzNjQwOTAsImVtYWlsIjoiaHV5ZW5udGtAc29uYXQudm4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTM4MDA1MzA3ODI0NTI1MzUzOSJdLCJlbWFpbCI6WyJodXllbm50a0Bzb25hdC52biJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.Zz-XC9wOwJDpyvMRoGh8hdyumpnt8yDU7Bn8wyFQRBvA9Rr3AHLc8guTfVE9wfi6qVgnK-xXh03E2_hbDKTXEjvUr1uR7AlLWGRb9tZZYQnZ-LIuBByksVV-5tljA7IRAsDJ_IXH4y1PJGySEe1C0bXSrDh8vZsI8kwiYG21F1anHEdelTtRIDY_fV03wG-s3f1mtKYC_XGKis340_h-ull4-IyqPRbDfrvconzHQVfPOTazP1cxQIYba5T_Haz9I5iNWk-5ECRsAizQl2HDLMfVutXQEqaOFb3nOmt1wu1xRdSZlCHrNjKOOG2C_q06EY_laGE-sZXjw3XTSgvj9Q"
       - get:
           url: "/games/2490525/check"
-      # - forEach:
-      #     - log: "Sending request with display name: {{ item }}"
-      #     - post:
-      #         url: "/games/2490525/join"
-      #         json:
-      #           displayName: "{{ item }}"
-      #   items: "{{ displayNames }}"
+      - post:
+          url: "/games/2490525/join"
+          json:
+            displayName: "{{ displayName }}"
