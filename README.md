@@ -2,7 +2,7 @@
 npm install -g artillery@latest
 
 ## Run the test 
-artillery run <testfilename> -o <outputfilename>
+artillery run testfilename -o outputfilename
 
 Eg. artillery run load-test.yml -o load-report.json
 
