@@ -1,22 +1,89 @@
 config:
   target: "https://kahoot-f8-apis.sonatgame.com"
+  plugins:
+    expect: {}
   phases:
-    - duration: 20
-      arrivalRate: 10
+    # Host create game
+    # - name: "Host create game"
+    #   duration: 10
+    #   arrivalCount: 1
+    #   scenario: "create_game_scenario"
+    #   think: 10
+
+    # Users join game
+    # Later: break this phase into 3 sub-phases: 10s (1vu/s), 30s (5vu/s), 20s (2vu/s)
+    # - name: "Users join game"
+    #   duration: 20
+    #   arrivalCount: 200
+    #   scenario: "join_game_scenario"
+      # arrivalRate: 10
+
+    # Users interact with questions
+    # - duration:
+    #   arrivalCount: 100
+    #   scenario: "questions_scenario"
+
+    # Finale
+
   payload:
-    path: "players.csv"
+    path: "./players.csv"
+    order: sequence
+    loadAll: false
+    skipHeader: true
+    skipEmptyLines: true
     fields:
       - "displayName"
+  variables:
+    game_pin: ""
+    bearer_token: "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJhNjI1OTZmNTJmNTJlZDQ0MDQ5Mzk2YmU3ZGYzNGQyYzY0ZjQ1M2UiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSHV5ZW4gTlRLIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0luVXdITkJiamFIUndSYXk4WXd3NjRILXFqSTR3Ui04MUhJY2R5SUp5OGF3PXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3NvbmF0LWJpLWthaG9vdCIsImF1ZCI6InNvbmF0LWJpLWthaG9vdCIsImF1dGhfdGltZSI6MTcxMDc0NTgyNiwidXNlcl9pZCI6IkhENWdVYlI5MG5NR29CdU5MRWhiOU85d0dxSzIiLCJzdWIiOiJIRDVnVWJSOTBuTUdvQnVOTEVoYjlPOXdHcUsyIiwiaWF0IjoxNzExNDM4MjEyLCJleHAiOjE3MTE0NDE4MTIsImVtYWlsIjoiaHV5ZW5udGtAc29uYXQudm4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTM4MDA1MzA3ODI0NTI1MzUzOSJdLCJlbWFpbCI6WyJodXllbm50a0Bzb25hdC52biJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.uIgl9hPIHN9SQkp8YSbkK-tHv1HHoHJygKTdAd3zVul0Wn_XeU1Bhl9SCPsKiqSPaFZM_VHNK5ixjgSfH1gnGYt68oaMG2GzAdjIJR60jwbCw6kwR3TddXzLUf7pJp9DLL3VwBC7iF-ifGXAwtuBh3uytzMdbEXd9Jwn0hOI0MAUUcTkWU3WfLKhTvcKy-S11omX1sOohbwLXaDGxuS6qUvSz8hbEpC9hKDTug5k5XZrkZOl-0_V_9N9V2lXqEsauHedWlqZft12f0ldI1axv4OZDgqD0KEyzgRMCOnSdgYEock85HzXMtv0rC9DShHA-azP2t1rIy8nHKihFMXq5w"
 
 scenarios:
-  - flow:
+  # - name: "create_game_scenario"
+  #   flow:
+  #     - post:
+  #         url: "/games"
+  #         headers:
+  #           Authorization: "Bearer {{ bearer_token }}"
+  #         json:
+  #           type: "LIVE"
+  #           title: "Sonat Kahoot4"
+  #           questions:
+  #             [
+  #               "6600eeeda320f20055015543",
+  #               "6600eeeda320f20055015548",
+
+  #               "6600eeeda320f2005501554d",
+  #               "6600eeeda320f20055015552",
+  #               "6600eeeda320f20055015557",
+  #               "6600eeeda320f2005501555c",
+  #               "6600eeeda320f20055015561",
+  #               "6600eeeda320f20055015566",
+  #               "6600eeeda320f2005501556b",
+  #               "6600eeeda320f20055015570",
+  #               "6600eeeda320f20055015575",
+  #               "6600eeeda320f2005501557a",
+  #               "6600eeeda320f2005501557f",
+  #               "6600eeeda320f20055015584",
+  #               "6600eeeda320f20055015589",
+  #               "6600eeeda320f2005501558e",
+  #               "6600eeeda320f20055015593",
+  #               "6600eeeda320f20055015598",
+  #               "6600eeeda320f2005501559d",
+  #               "6600eeeda320f200550155a2",
+  #             ]
+  #           kahoot: "6600eeeda320f200550155bb"
+  #         capture:
+  #           # - strict: true
+  #             json: $.data.pin
+  #             as: gamePin
+
+  - name: "join_game_scenario"
+    flow:
       - get:
-          url: "/kahoots/"
-          headers:
-            Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImViYzIwNzkzNTQ1NzExODNkNzFjZWJlZDI5YzU1YmVmMjdhZDJjY2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSHV5ZW4gTlRLIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0luVXdITkJiamFIUndSYXk4WXd3NjRILXFqSTR3Ui04MUhJY2R5SUp5OGF3PXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL3NvbmF0LWJpLWthaG9vdCIsImF1ZCI6InNvbmF0LWJpLWthaG9vdCIsImF1dGhfdGltZSI6MTcxMDc0NTgyNiwidXNlcl9pZCI6IkhENWdVYlI5MG5NR29CdU5MRWhiOU85d0dxSzIiLCJzdWIiOiJIRDVnVWJSOTBuTUdvQnVOTEVoYjlPOXdHcUsyIiwiaWF0IjoxNzExMzYwNDkwLCJleHAiOjE3MTEzNjQwOTAsImVtYWlsIjoiaHV5ZW5udGtAc29uYXQudm4iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMTM4MDA1MzA3ODI0NTI1MzUzOSJdLCJlbWFpbCI6WyJodXllbm50a0Bzb25hdC52biJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.Zz-XC9wOwJDpyvMRoGh8hdyumpnt8yDU7Bn8wyFQRBvA9Rr3AHLc8guTfVE9wfi6qVgnK-xXh03E2_hbDKTXEjvUr1uR7AlLWGRb9tZZYQnZ-LIuBByksVV-5tljA7IRAsDJ_IXH4y1PJGySEe1C0bXSrDh8vZsI8kwiYG21F1anHEdelTtRIDY_fV03wG-s3f1mtKYC_XGKis340_h-ull4-IyqPRbDfrvconzHQVfPOTazP1cxQIYba5T_Haz9I5iNWk-5ECRsAizQl2HDLMfVutXQEqaOFb3nOmt1wu1xRdSZlCHrNjKOOG2C_q06EY_laGE-sZXjw3XTSgvj9Q"
-      - get:
-          url: "/games/2490525/check"
+          url: "/games/{{ game_pin }}/check"
       - post:
-          url: "/games/2490525/join"
+          url: "/games/{{ game_pin }}/join"
           json:
             displayName: "{{ displayName }}"
+
+  # questions_scenario:
